@@ -51,21 +51,25 @@ io.sockets.on('connection', function (socket) {
 	var room = null;
 
 	socket.on('subscribe', function (subRoom) {
-		if (!room) {
-			room = subRoom.toLowerCase();
-
-			socket.join(room);
-
-			if (!playlist[room])
-				playlist[room] = [];
+		if (room) {
+			return;
 		}
+
+		room = subRoom.toLowerCase();
+
+		socket.join(room);
+
+		if (!playlist[room])
+			playlist[room] = [];
 	});
 
 	socket.on('unsubscribe', function () {
-		if (room) {
-			socket.leave(room);
-			room = null;
+		if (!room) {
+			return;
 		}
+
+		socket.leave(room);
+		room = null;
 	});
 
 	socket.on('search', function (data) {
@@ -78,37 +82,52 @@ io.sockets.on('connection', function (socket) {
 	});
 
 	socket.on('get-playlist', function () {
-		if (room) {
-			socket.emit('playlist', playlist[room]);
+		if (!room) {
+			return;
 		}
+
+		socket.emit('playlist', playlist[room]);
 	});
 
 	socket.on('add', function (data) {
-		if (room) {
-			playlist[room].push(data);
-			io.sockets.in(room).emit('playlist', playlist[room]);
-
-			fs.appendFile(path.join(roomDir, room), data.title + ' ('+data.id+')\n');
+		if (!room) {
+			return;
 		}
+		
+		if (playlist[room].length > 0 
+			&& playlist[room][playlist[room].length - 1].id == data.id) {
+			return;
+		}
+
+		playlist[room].push(data);
+		io.sockets.in(room).emit('playlist', playlist[room]);
+
+		fs.appendFile(path.join(roomDir, room), data.title + ' ('+data.id+')\n');
 	});
 
 	socket.on('consume', function () {
-		if (room) {
-			playlist[room].shift();
-			io.sockets.in(room).emit('playlist', playlist[room]);
+		if (!room) {
+			return;
 		}
+
+		playlist[room].shift();
+		io.sockets.in(room).emit('playlist', playlist[room]);
 	});
 
 	socket.on('pauseplay', function () {
-		if (room) {
-			io.sockets.in(room).emit('pauseplay');
+		if (!room) {
+			return;
 		}
+
+		io.sockets.in(room).emit('pauseplay');
 	});
 
 	socket.on('skip', function () {
-		if (room) {
-			io.sockets.in(room).emit('skip');
+		if (!room) {
+			return;
 		}
+		
+		io.sockets.in(room).emit('skip');
 	});
 });
 
@@ -122,7 +141,8 @@ var search = function (query, callback) {
 			resultsObject.data.items.forEach(function (entry) {
 				searchResults.push({
 					id:    entry.id,
-					title: entry.title
+					title: entry.title,
+					thumb: entry.thumbnail.sqDefault
 				});
 			});
 		}

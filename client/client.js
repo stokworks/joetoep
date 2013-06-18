@@ -52,6 +52,8 @@ function JoeToepInterface(config) {
 			self.inRoomTemplate({ isPlayer: isPlayer })
 		);
 
+		self.$container.addClass(isPlayer ? 'player' : 'client');
+
 		if (isPlayer) {
 			var params = { allowScriptAccess: 'always' };
     		var atts = { id: 'player' };
@@ -78,13 +80,17 @@ function JoeToepInterface(config) {
 	this.setType = function (isPlayer) {
 		self.initInRoomUI(isPlayer);
 
-		if (isPlayer)
+		if (isPlayer) 
 			self.interface = new JoeToepPlayer(new JoeToepRemote(self));
 		else
 			self.interface = new JoeToepRemote(self);
 	}
 
 	this.init = function () {
+		$(window).on('hashchange', function() {
+			location.reload();
+		});
+
 		var hash = (window.location.hash.substr(0, 1) == '#') ? 
 						window.location.hash.substr(1) :
 						window.location.hash;
@@ -166,8 +172,10 @@ function JoeToepRemote(joeToepInterface) {
 			self.$searchResults.empty();
 
 			data.results.forEach(function (result) {
-				var el = $('<div></div>')
+				var el = $('<div class="cf"></div>')
 							.text(result.title);
+
+				el.prepend('<img src="'+result.thumb+'">');
 
 				self.$searchResults.append(el);
 
@@ -181,9 +189,11 @@ function JoeToepRemote(joeToepInterface) {
 	this.socket.on('playlist', function (data) {
 		self.$playlist.empty();
 
-		data.forEach(function (song) {
-			var el = $('<div></div>')
-							.text(song.title);
+		data.forEach(function (result) {
+			var el = $('<div class="cf"></div>')
+							.text(result.title);
+
+			el.prepend('<img src="'+result.thumb+'">');
 
 			self.$playlist.append(el);
 		});

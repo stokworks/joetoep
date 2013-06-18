@@ -7,6 +7,7 @@
 	#container h1 {
 		text-align: center;
 		font-size: 400%;
+		margin: 30px 0px 20px 0px;
 	}
 
 		#container h1 a {
@@ -46,14 +47,18 @@
 			   -moz-box-sizing: border-box;
 			-webkit-box-sizing: border-box;
 
+			float: left;
 			width: 130px;
 			height: 130px;
 			margin: 10px;
 			border: 5px solid #000;
+
+			line-height: 116px;
 			background: #eee;
-			border-radius: 20px;
-			float: left;
 			text-align: center;
+			cursor: pointer;
+			font-size: 140%;
+			font-weight: bold;
 		}
 
 		#type-remote:hover,
@@ -64,24 +69,27 @@
 
 	#collumn-left,
 	#collumn-right {
-	        box-sizing: border-box;
+		        box-sizing: border-box;
 		   -moz-box-sizing: border-box;
 		-webkit-box-sizing: border-box;
+
 		width: 400px;
-		padding: 15px;
+		padding: 15px 15px 0px 15px;
 		float: left;
 		min-height: 500px;
 	}
 
-	#collumn-left {
-		border-right: 1px dashed #000;
-	}
+	#collumn-left { }
 
 		#search-input {
 			        box-sizing: border-box;
 			   -moz-box-sizing: border-box;
 			-webkit-box-sizing: border-box;
+
 			width: 370px;
+			padding: 5px;
+			font-size: 90%;
+			margin: 0;
 		}
 
 		#search-form input[type="submit"] {
@@ -89,20 +97,47 @@
 		}
 
 		#search-results {
+			margin-top: 10px;
+		}
+
+		#playlist,
+		#search-results {
 			font-size: 80%;
-			margin-top: 20px;
+		}
+
+		#playlist div,
+		#search-results div {
+			border: 1px solid #ccc;
+			background: #eee;
+			margin-bottom: 5px;
+			padding-right: 3px;
 		}
 
 		#search-results div:hover {
 			cursor: pointer;
-			text-decoration: underline;
+			background: #f33;
+			color: #fff;
+			border-color: #000;
 		}
 
-	#collumn-right {}
+		#playlist div img,
+		#search-results div img {
+			float: left;
+			width: 60px;
+			margin-right: 3px;
+			border-right: 1px solid #ccc;
+		}
+
+		#search-results div:hover img {
+			border-color: #000;
+		}
+
+		#collumn-right {}
 
 		#player-container {
 			background: #000;
 			height: 226px;
+			margin-bottom: 5px;
 		}
 
 		#player-container:-webkit-full-screen  {
@@ -111,29 +146,39 @@
 		}
 
 		#controls {
-			width: 330px;
+			width: 370px;
 			margin: 0 auto;
 		}
 
-			#controls .hotkey {
+			#controls div {
+				        box-sizing: border-box;
+				   -moz-box-sizing: border-box;
+				-webkit-box-sizing: border-box;
+
+				float: left;
+				background: #eee;
+				border: 1px solid #ccc;
+				padding: 6px;
+				font-size: 80%;
+				text-align: center;
+			}
+
+			#controls div .hotkey {
 				text-decoration: underline;
 			}
 
-			#control-pauseplay,
-			#control-skip,
-			#control-fullscreen {
-					        box-sizing: border-box;
-				   -moz-box-sizing: border-box;
-				-webkit-box-sizing: border-box;
-				float: left;
-				background: #eee;
-				border: 2px solid #000;
-				border-radius: 5px;
-				margin: 5px 5px 10px 5px;
-				padding: 5px;
-				width: 100px;
-				font-size: 80%;
-				text-align: center;
+			.player #controls div {
+				margin: 0px 5px 5px 0px;
+				width: 120px;
+			}
+
+			.client #controls div {
+				margin: 0px 10px 10px 0px;
+				width: 180px;
+			}
+
+			#controls div:last-child {
+				margin-right: 0;
 			}
 
 			#control-pauseplay:hover,
@@ -142,12 +187,15 @@
 				background: #f33;
 				color: #fff;
 				cursor: pointer;
+				border-color: #000;
 			}
 
-		#playlist {
-			font-size: 80%;
-		}
+.cf:before,
+.cf:after {
+	content: " ";
+	display: table;
+}
 
-.clear {
+.cf:after {
 	clear: both;
 }
