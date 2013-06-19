@@ -137,7 +137,6 @@
 		#player-container {
 			background: #000;
 			height: 226px;
-			margin-bottom: 5px;
 		}
 
 		#player-container:-webkit-full-screen  {
@@ -168,7 +167,7 @@
 			}
 
 			.player #controls div {
-				margin: 0px 5px 5px 0px;
+				margin: 5px 5px 5px 0px;
 				width: 120px;
 			}
 
@@ -181,9 +180,7 @@
 				margin-right: 0;
 			}
 
-			#control-pauseplay:hover,
-			#control-skip:hover,
-			#control-fullscreen:hover {
+			#controls div:hover {
 				background: #f33;
 				color: #fff;
 				cursor: pointer;
