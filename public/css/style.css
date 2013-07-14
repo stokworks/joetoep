@@ -1,0 +1,269 @@
+body {
+	margin: 0;
+	padding: 0;
+
+	font-family: sans-serif;
+}
+
+.cf:before,
+.cf:after {
+	content: " ";
+	display: table;
+}
+
+.cf:after {
+	clear: both;
+}
+
+h1 {
+	margin: 30px 0px 20px 0px;
+	font-size: 400%;
+
+	text-align: center;
+	color: #000;
+	text-shadow: #ddd 0px 2px;
+}
+
+h1 span {
+	margin-left: 3px;
+	padding: 2px 5px 4px 7px;
+
+	border-top-left-radius: 15px 50%;
+	border-top-right-radius: 15px 50%;
+	border-bottom-left-radius: 15px 50%;
+	border-bottom-right-radius: 15px 50%;
+
+	background: red;
+	color: white;
+
+	box-shadow: 0px 5px #B90000;
+	text-shadow: rgba(0,0,0,0.5) -1px 0, rgba(0,0,0,0.3) 0 -1px, rgba(255,255,255,0.5) 0 1px, rgba(0,0,0,0.3) -1px -1px;
+}
+
+footer {
+	margin: 25px 0;
+	text-align: center;
+	font-size: 70%;
+	color: #999;
+}
+
+footer a {
+	color: inherit;
+}
+
+#container {
+	width: 100%;
+	max-width: 1000px;
+	min-width: 740px;
+	margin: 0 auto;
+}
+
+#room-select {
+	width: 400px;
+	margin: 30px auto 0 auto;
+}
+
+#room-select h2 {
+	font-size: 220%;
+}
+
+#room-select input {
+	box-sizing: border-box;
+	width: 400px;
+	padding: 2px 8px;
+
+	font-size: 200%;
+}
+
+#room-select button {
+	box-sizing: border-box;
+	width: 193px;
+	border: 0;
+	margin: 20px 0 0 0;
+	padding: 10px 0;
+
+	border-radius: 10px;
+	font-size: 180%;
+	font-weight: bold;
+
+	color: white;
+	background: red;
+	box-shadow: 0px 5px #B90000;
+	text-shadow: rgba(0,0,0,0.5) -1px 0, rgba(0,0,0,0.3) 0 -1px, rgba(255,255,255,0.5) 0 1px, rgba(0,0,0,0.3) -1px -1px;
+}
+
+#room-select button[disabled] {
+	color: #ddd;
+	background: #999;
+	box-shadow: 0px 5px #666;
+}
+
+#room-select button:not([disabled]):hover {
+	position: relative;
+	top: -2px;
+	box-shadow: 0px 7px #B90000;
+}
+
+#room-select button:not([disabled]):active {
+	position: relative;
+	top: 3px;
+	box-shadow: 0px 2px #B90000;
+}
+
+#room-select button:last-child {
+	margin-left: 10px;
+}
+
+.main {
+	margin: 20px 0 0 0;
+}
+
+.collumn {
+	width: 46%;
+	margin: 0 2%;
+}
+
+.collumn.left {
+	float: left;
+	min-height: 500px;
+}
+
+.collumn.right {
+	float: right;
+}
+
+#room-info {
+	padding: 10px;
+	background: black;
+	margin-bottom: 10px;
+}
+
+#room-info h2 {
+	margin: 0 5px;
+	color: white;
+}
+
+#player-attached {
+	float: right;
+	width: 46%;
+	margin: 0 2% 10px 2%;
+	        transition: width 0.5s;
+	-webkit-transition: width 0.5s;
+}
+
+#player-attached.big {
+	width: 96%;
+	margin: 0 2% 10px 2%;
+}
+
+#youtube-container {
+	position: relative;
+	background: black;
+	        transition: height 0.5s;
+	-webkit-transition: height 0.5s;
+}
+
+#focus-disabler {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 1;
+	background: white;
+	opacity: 0;
+}
+
+#nowplaying {
+	padding: 5px 8px;
+	font-size: 80%;
+	background: black;
+	color: white;
+}
+
+#player-attached.big #nowplaying {
+	font-size: 110%;
+}
+
+#progress {
+	position: relative;
+	height: 20px;
+	cursor: pointer;
+	background: black;
+}
+
+
+#progress-loaded {
+	position: absolute;
+	top: 10px;
+	height: 10px;
+	width: 66%;
+	background: #333;
+}
+
+#progress:hover #progress-loaded {
+	background: #444;
+}
+
+#progress-percentage {
+	position: absolute;
+	height: 20px;
+	width: 33%;
+	background: #444;
+}
+
+#progress:hover #progress-percentage {
+	background: #666;
+}
+
+#progress-control {
+	position: absolute;
+	top: 0;
+	left: 33%;
+	height: 20px;
+	width: 20px;
+	background: #555;
+}
+
+#progress:hover #progress-control {
+	background: #bbb;
+}
+
+#progress-label1, #progress-label2 {
+	position: absolute;
+	top: 1px;
+	font-size: 80%;
+	color: #ccc;
+}
+
+#progress:hover #progress-label1, 
+#progress:hover #progress-label2 {
+	color: #fff;
+}
+
+#progress-label1 {
+	left: 6px;
+}
+
+#progress-label2 {
+	right: 6px;
+}
+
+#controls {
+	height: 35px;
+	padding-top: 1px;
+	background: black;
+}
+
+#controls div {
+	height: 34px;
+	width: 34px;
+	cursor: pointer;
+	margin: 0 2px 0 2px;
+}
+
+#search-input input {
+	box-sizing: border-box;
+	width: 100%;
+	padding: 4px 6px;
+}

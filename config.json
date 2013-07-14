@@ -1,7 +1,7 @@
 {
-	"port": 8080,
+	"port": 80,
 
 	"clientConfig": {
-		"host": "http://domain.name.with.trailing.slash.tld/"
+		"host": "http://localhost/"
 	}
 }
