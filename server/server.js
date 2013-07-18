@@ -102,11 +102,11 @@ io.sockets.on('connection', function (socket) {
 		playlist[room].push(data);
 		io.sockets.in(room).emit('playlist', playlist[room]);
 
-		if (fs.exists(roomDir), function (exists)) {
+		fs.exists(roomDir), function (exists) {
 			if (exists) {
 				fs.appendFile(path.join(roomDir, room), data.title + ' ('+data.id+')\n');
 			}
-		}
+		});
 	});
 
 	socket.on('consume', function () {
