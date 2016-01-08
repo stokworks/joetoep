@@ -1,5 +1,6 @@
 {
 	"port": 8080,
+	"youtubeKey": "SEARCH_V3_API_KEY",
 
 	"clientConfig": {
 		"host": "http://domain.name.with.trailing.slash.tld/"

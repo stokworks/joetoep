@@ -53,14 +53,6 @@ function JoeToepInterface(config) {
 		);
 
 		self.$container.addClass(isPlayer ? 'player' : 'client');
-
-		if (isPlayer) {
-			var params = { allowScriptAccess: 'always' };
-    		var atts = { id: 'player' };
-			swfobject.embedSWF(
-				'http://www.youtube.com/apiplayer?enablejsapi=1&playerapiid=ytplayer&version=3',
-				'player', '100%', '100%', '8', null, null, params, atts);
-		}
 	}
 
 	this.joinRoom = function (room) {
@@ -147,7 +139,7 @@ function JoeToepRemote(joeToepInterface) {
 	});
 
 	$(document).keypress(function (e) {
-		if ( $("*:focus").is("textarea, input") ) return;
+		if ( $(e.target).is("input") ) return;
 
 		switch (e.which) {
 			case 112:
@@ -223,17 +215,17 @@ function JoeToepPlayer(joeToepRemote) {
 		});
 
 		this.$player.on('error', function (e, error) {
-			console.log('Error: ' + error);
+			console.log(error);
 		});
 
-		this.$player.player({ width: '100%', height: '100%' });
+		this.$player.player();
 	}
 
 	this.playlistChanged = function () {
 		if (this.$player.player('isReady')) {
 			var state = this.$player.player('getState');
 
-			if (state == -1 || state == 0) {
+			if (state == -1 || state == 0 || state == 5) {
 				this.playNextSong();
 			}
 		}
@@ -241,6 +233,8 @@ function JoeToepPlayer(joeToepRemote) {
 
 	this.playstateChanged = function () {
 		var state = this.$player.player('getState');
+		
+		console.log('State: ' + state);
 
 		if (state == -1 || state == 0) {
 			this.playNextSong();
@@ -254,7 +248,7 @@ function JoeToepPlayer(joeToepRemote) {
 				this.playSong(this.playlist.shift().id);
 				this.socket.emit('consume');
 
-				setTimeout(function () { self.playAllowed = true; }, 250);
+				setTimeout(function () { self.playAllowed = true; }, 1000);
 			}
 		}
 	}

@@ -1,6 +1,7 @@
 var socketio = require('socket.io'),
 	send     = require('send'),
 	http     = require('http'),
+	https    = require('https'),
 	path     = require('path'),
 	url      = require('url'),
 	fs       = require('fs');
@@ -141,12 +142,12 @@ var search = function (query, callback) {
 
 		var resultsObject = JSON.parse(results);
 
-		if (resultsObject.data.items) {
-			resultsObject.data.items.forEach(function (entry) {
+		if (resultsObject.items) {
+			resultsObject.items.forEach(function (entry) {
 				searchResults.push({
-					id:    entry.id,
-					title: entry.title,
-					thumb: entry.thumbnail.sqDefault
+					id:    entry.id.videoId,
+					title: entry.snippet.title,
+					thumb: entry.snippet.thumbnails.default.url
 				});
 			});
 		}
@@ -156,8 +157,8 @@ var search = function (query, callback) {
 }
 
 var searchRequest = function (query, callback) {
-	var url = 'http://gdata.youtube.com/feeds/api/videos?alt=jsonc&v=2&q=';
-	http.get(url + encodeURIComponent(query), function (res) {
+	var url = 'https://www.googleapis.com/youtube/v3/search?key=' + config.youtubeKey + '&part=snippet&maxResults=25&type=video&q=';
+	https.get(url + encodeURIComponent(query), function (res) {
 		var body = '';
 
 		res.on('data', function (chunk) {

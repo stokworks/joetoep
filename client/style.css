@@ -25,6 +25,22 @@
 			text-shadow: rgba(0,0,0,0.5) -1px 0, rgba(0,0,0,0.3) 0 -1px, rgba(255,255,255,0.5) 0 1px, rgba(0,0,0,0.3) -1px -1px;
 		}
 
+	#container #footer {
+		clear: both;
+		margin-top: 50px;
+		font-size: 70%;
+		text-align: center;
+		color: #888;
+	}
+
+		#container #footer a {
+			color: inherit
+		}
+
+		#container #footer a:hover {
+			color: #000;
+		}
+
 	#room-selector {
 		width: 300px;
 		margin: 0 auto;

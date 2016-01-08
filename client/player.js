@@ -1,45 +1,60 @@
 (function ($) {
   var methods = {
     init: function init(options) {
-      var id        = $(this).attr('id');
-      var replaceId = $(this).children().attr('id');
+      var $this = this;
 
-      var width = (options.width ? options.width : '100%');
-      var height = (options.height ? options.height : '100%');
-
-      var params = { allowScriptAccess: 'always' };
-      var atts = { id: replaceId };
-      swfobject.embedSWF(
-        'http://www.youtube.com/apiplayer?enablejsapi=1&playerapiid=' + id + '&version=3',
-        replaceId, width, height, '8', null, null, params, atts);
-
-      var $this = $(this);
+      var id        = $this.attr('id');
+      var replaceId = $this.children().attr('id');
+      
       $this.data('ready', false);
 
-      eventYouTubePlayerReady(id, function (player) {
-        $this.data('api', player);
-
-        var fnNameStateChange = 'onYouTubeStateChange' + player.id;
-        window[fnNameStateChange] = function (newState) {
-          $this.trigger('stateChange', [newState]);
-        }
-        player.addEventListener('onStateChange', fnNameStateChange);
-        
-        var fnNamePlaybackQualityChange = 'onYouTubePlaybackQualityChange' + player.id;
-        window[fnNamePlaybackQualityChange] = function (newPlaybackQuality) {
-          $this.trigger('qualityChange', [newPlaybackQuality]);
-        }
-        player.addEventListener('onPlaybackQualityChange', fnNamePlaybackQualityChange);
-
-        var fnNameError = 'onYouTubeError' + player.id;
-        window[fnNameError] = function (error) {
-          $this.trigger('error', [error]);
-        }
-        player.addEventListener('onError', fnNameError);
-
+      var fnNameReady = 'onYouTubeReady$' + replaceId;
+      window[fnNameReady] = function () {
         $this.data('ready', true);
-        $this.trigger('ready');
-      });
+		$this.trigger('ready');
+      }
+
+      var fnNameStateChange = 'onYouTubeStateChange$' + replaceId;
+      window[fnNameStateChange] = function (newState) {
+        $this.trigger('stateChange', [newState]);
+      }
+      
+      var fnNamePlaybackQualityChange = 'onYouTubePlaybackQualityChange$' + replaceId;
+      window[fnNamePlaybackQualityChange] = function (newPlaybackQuality) {
+        $this.trigger('qualityChange', [newPlaybackQuality]);
+      }
+
+      var fnNameError = 'onYouTubeError$' + replaceId;
+      window[fnNameError] = function (error) {
+        $this.trigger('error', [error]);
+      }
+
+      window.onYouTubeIframeAPIReady = function () {
+        player = new YT.Player('player', {
+          height: '100%',
+          width: '100%',
+          events: {
+            'onReady': fnNameReady,
+            'onStateChange': fnNameStateChange,
+            'onPlaybackQualityChange': fnNamePlaybackQualityChange,
+            'onError': fnNameError
+          },
+          playerVars: {
+            controls:       0,
+            showinfo:       0,
+            rel:            0,
+            iv_load_policy: 3,
+            disablekb     : 1
+          }
+        });
+
+        $this.data('api', player);
+      }
+
+      $this.css('position', 'relative');
+      $this.append(
+        '<div style="position: absolute; width: 100%; height: 100%; z-index: 1; top: 0;"></div>'
+      );
 
       return $this;
     },
@@ -81,23 +96,6 @@
     } else {
       $.error('Method ' +  method + ' does not exist on jQuery.player');
     }
-  }
-
-  var eventYouTubePlayerReadyCallbacks = [];
-  var eventYouTubePlayerReady = function (playerId, callback) {
-    if (callback) {
-      eventYouTubePlayerReadyCallbacks.push({ playerId: playerId, callback: callback });
-    } else {
-      eventYouTubePlayerReadyCallbacks.forEach(function (cb) {
-        if (playerId === cb.playerId) {
-          cb.callback($('#' + playerId).children().get(0));
-        }
-      });
-    }
-  }
-
-  window.onYouTubePlayerReady = function (playerId) {
-    eventYouTubePlayerReady(playerId);
   }
 })(jQuery);
 
