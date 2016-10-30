@@ -139,7 +139,7 @@ function JoeToepRemote(joeToepInterface) {
 	});
 
 	$(document).keypress(function (e) {
-		if ( $(e.target).is("input") ) return;
+		if ( $(e.target).is('input') ) return;
 
 		switch (e.which) {
 			case 112:
@@ -292,7 +292,7 @@ function JoeToepPlayer(joeToepRemote) {
 	});
 
 	$(document).keypress(function (e) {
-		if ( $("*:focus").is("textarea, input") ) return;
+		if ( $(e.target).is('input') ) return;
 		
 		switch (e.keyCode) {
 			case 102:
