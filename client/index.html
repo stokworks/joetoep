@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>JoeToep</title>
     <link rel="shortcut icon" type="image/png" href="/favicon.png"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script src="underscore.js"></script>
@@ -17,41 +18,37 @@
     <link href="style.css" rel="stylesheet">
   </head>
   <body>
+    <div class="col center header">
+      <a href="/">
+        <h1>Joe<span>Toep</span></h1>
+      </a>
+    </div>
+
     <div id="container"></div>
 
     <script id="room-selector-template" type="text/template">
-      <h1>Joe<span>Toep</span></h1>
-
-      <div id="room-selector">
+      <div class="col center">
         <form id="room-form">
           <span>Room: </span>
           <input id="room-input">
           <input type="submit">
         </form>
       </div>
-
-      <div id="footer">JoeToep by <a href="http://sanderbakkum.nl">Sander Bakkum</a>
     </script>
 
     <script id="type-selector-template" type="text/template">
-      <h1>Joe<span>Toep</span></h1>
-
-      <div id="type-selector">
-        <div id="type-remote">
+	  <div class="container-fluid">
+        <div id="type-remote" class="col">
           Remote
         </div>
-        <div id="type-player">
+        <div id="type-player" class="col">
           Player
         </div>
-      </div>
-
-      <div id="footer">JoeToep by <a href="http://sanderbakkum.nl">Sander Bakkum</a>
+	  </div>
     </script>
 
     <script id="in-room-template" type="text/template">
-      <h1>Joe<span>Toep</span></h1>
-      
-      <div id="collumn-left">
+      <div class="col col-md-50 col-sm-100">
         <form id="search-form">
           <input id="search-input">
           <input type="submit">
@@ -60,7 +57,7 @@
         <div id="search-results"></div>
       </div>
 
-      <div id="collumn-right">
+      <div class="col col-md-50 col-sm-100">
 
         <% if (isPlayer) { %>
           <div id="player-container">
@@ -68,19 +65,21 @@
           </div>
         <% } %>
 
-        <div id="controls" class="cf">
-          <div id="control-pauseplay"><span class="hotkey">P</span>ause/<span class="hotkey">P</span>lay</div>
-          <div id="control-skip"><span class="hotkey">S</span>kip</div>
+        <div id="controls" class="cf container-fluid">
+          <div class="col col-md-inline col-sm-100" id="control-pauseplay"><span class="hotkey">P</span>ause/<span class="hotkey">P</span>lay</div>
+          <div class="col col-md-inline col-sm-100" id="control-skip"><span class="hotkey">S</span>kip</div>
           <% if (isPlayer) { %>
-            <div id="control-fullscreen"><span class="hotkey">F</span>ullscreen</div>
+            <div class="col col-md-inline col-sm-100" id="control-fullscreen"><span class="hotkey">F</span>ullscreen</div>
           <% } %>
         </div>
 
         <div id="playlist"></div>
-      </div>
-
-      <div id="footer">JoeToep by <a href="http://sanderbakkum.nl">Sander Bakkum</a>
     </script>
+
+    <div id="footer" class="center">
+      JoeToep by <a target="_blank" href="http://sanderbakkum.nl">Sander Bakkum</a>.<br>
+      Source at <a target="_blank" href="https://github.com/stokworks/joetoep">Github</a>.
+	</div>
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
